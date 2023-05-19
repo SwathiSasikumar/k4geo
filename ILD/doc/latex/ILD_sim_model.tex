@@ -1,0 +1,119 @@
+\documentclass[a4paper]{article}
+
+\usepackage[]{authblk}
+\usepackage{graphicx}
+\usepackage{tikz}
+
+\graphicspath{ {./figs/} }
+
+\title{The ILD simulation model in lcgeo (DD4hep) }
+
+%\author{Frank Gaede$^{a,b}$ \\ % E-mail: {frank.gaede@desy.de}
+%  \footnotesize
+%  $^a$~Deutsches-Elektronen-Synchrotron, DESY, Notkestr.85, 22607 Hamburg, Germany\\
+%  $^b$~CERN, Route de Meyrin 385, 1217 Meyrin, Switzerland
+%} 
+\author{Frank Gaede, DESY \\ % E-mail: {frank.gaede@desy.de}
+%  Deutsches-Elektronen-Synchrotron, DESY, Notkestr.85, 22607 Hamburg, Germany
+}
+\date{\today}
+
+%1234567890123456789012345678901234567890123456789012345678901234567890123456789
+
+
+\begin{document}
+
+\maketitle
+%\abstract{This document describes the ILD simulation model in lcge (DD4hep)... }
+%=============================================================================
+%\tableofcontents 
+%=============================================================================
+
+\section{Envelopes}
+The new ILD simulation model has mandatory envelope volumes defined for the individual subdetectors.
+This section describes the current parameters for these envelope volumes and their shapes.
+
+
+{\small
+  \begin{table}
+    \include{ILD_envelopeTable}
+    \caption{Parameters of the envelope volumes in the simulation model. 
+      \em{Note: inner and outer radii describe the inscribing cylinder for regular polyhedral barrel detectors.}
+      See Fig.\ref{ild:fig:rphi_envelopes} for the symmetries of the barrel envelopes.
+    }
+
+  \end{table}
+}
+
+\begin{figure}[th]
+  \centering
+  \includegraphics[width=\columnwidth]{ILD_rz_quadrant}
+  \caption{Envelope volumes for ILD detectors in simulation model}
+  \label{ild:fig:rz_envelopes}
+\end{figure}
+
+\begin{figure}[th]
+  \centering
+  \includegraphics[width=\columnwidth]{ILD_envelopes_3d_front}
+  \caption{Barrel envelope volumes for ILD detectors in simulation model as seen from the front}
+  \label{ild:fig:rphi_envelopes}
+\end{figure}
+
+\begin{figure}[th]
+  \centering
+  \includegraphics[width=\columnwidth]{tracking_envelopes}
+  \caption{Envelopes for the tracking detectors in ILD: VXD, SIT, FTD, TPC, SET.}
+  \label{ild:fig:trk_envelopes}
+\end{figure}
+
+
+\begin{figure}[th]
+  \centering
+  \includegraphics[width=1.3\columnwidth]{VXD_rz_envelope}
+  \caption{side view of the VXD envelope}
+  \label{ild:fig:vxd_env_rz}
+\end{figure}
+
+\begin{figure}[th]
+  \centering
+  \includegraphics[width=1.3\columnwidth]{SIT_rz_envelope}
+  \caption{side view of the SIT envelope}
+  \label{ild:fig:sit_env_rz}
+\end{figure}
+
+\begin{figure}[th]
+  \centering
+  \includegraphics[width=1.3\columnwidth]{FTD_rz_envelope}
+  \caption{side view of the FTD envelope}
+  \label{ild:fig:ftd_env_rz}
+\end{figure}
+
+\begin{figure}[th]
+  \centering
+  \includegraphics[width=\columnwidth]{TPC_rz_envelope}
+  \caption{side view of the TPC envelope}
+  \label{ild:fig:tpc_env_rz}
+\end{figure}
+
+\begin{figure}[th]
+  \centering
+  \includegraphics[width=1.3\columnwidth]{SET_rz_envelope}
+  \caption{side view of the SET envelope}
+  \label{ild:fig:set_env_rz}
+\end{figure}
+
+
+%\section{Summary and Outlook}
+
+
+
+%%============================================================================
+%% References
+%%============================================================================
+
+
+%\bibliographystyle{plain}
+%\bibliography{ILD-simulation}
+
+
+\end{document}

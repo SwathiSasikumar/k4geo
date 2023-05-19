@@ -1,0 +1,97 @@
+###################################################################################################
+#
+#  lcgeo package ILD
+#   port of the Mokka ILD model(s) to DD4hep
+#
+# F.Gaede, DESY, 2013
+###################################################################################################
+
+The goal of this package is to preserve the current Mokka models for DD4hep.
+
+The current status is 'highly experimental' as we are trying to understand how to best 
+go about the porting. 
+
+The following is a loose set of notes of commands and scripts used for the
+first port of the ILD_o1_v05 detector model...
+
+
+
+####################################################################################################
+# browse the Mokka DB:
+#
+mysql -h pollin1.in2p3.fr -u consult -p
+
+mysql> select ingredients.sub_detector, sub_detector.driver, sub_detector.subdriver, db, build_order from ingredients,sub_detector where (ingredients.model="ILD_o1_v05" and ingredients.sub_detector=sub_detector.name ) ;
++------------------------------+----------------------+------------+------------------------------+-------------+
+| sub_detector                 | driver               | subdriver  | db                           | build_order |
++------------------------------+----------------------+------------+------------------------------+-------------+
+| LHcal01                      | SLHcal01             |            | VOID                         |         120 |
+| tpc10_01                     | tpc10                |            | tpc10_01                     |         200 |
+| ftd_simple_staggered_02      | FTD_Simple_Staggered |            | ftd_simple_staggered_02      |         220 |
+| SEcal03p01                   | SEcal04              |            | VOID                         |          90 |
+| SHcalSc03                    | SHcalSc03            |            | VOID                         |         110 |
+| SCoil03                      | SCoil02              | coil01     | VOID                         |         400 |
+| yoke05                       | yoke05               |            | yoke04                       |         500 |
+| LumiCalV                     | SLcal03              | LumiCalV00 | VOID                         |         100 |
+| tubeX06                      | tubeX01              |            | tubeX06                      |         150 |
+| sit_simple_planar_sensors_03 | SIT_Simple_Planar    |            | sit_simple_planar_sensors_03 |         210 |
+| SField01                     | SField01             | field00    | VOID                         |        1000 |
+| vxd07                        | SVxd04               | vxd04      | vxd07                        |          20 |
+| set_simple_planar_sensors_01 | SET_Simple_Planar    |            | set_simple_planar_sensors_01 |         230 |
+| maskX03                      | maskX01              |            | maskX03                      |         160 |
+| BeamCal08                    | BeamCal01            |            | beamcalX08                   |         650 |
+| SServices00                  | SServices00          |            | VOID                         |        1200 |
++------------------------------+----------------------+------------+------------------------------+-------------+
+
+
+######################################################################################################
+#
+#  modified MySQLWrapper to create xml files (per database) with all parameters from select commands:
+#  create directory
+#  ./mokka_xml_dump
+#  and then run, e.g.
+#  Mokka -M ILD_o1_v05
+ 
+ TMP_DB07.xml
+ beamcalX08.xml
+ ftd_simple_staggered_02.xml
+ hcal04.xml
+ maskX03_14.xml
+ materials02.xml
+ models03.xml
+ set_simple_planar_sensors_01.xml
+ sit_simple_planar_sensors_03.xml
+ tpc10_01.xml
+ tubeX06_14.xml
+ yoke04.xml
+
+
+######################################################################################################
+#
+# create a gdml dump of the Mokka model
+#
+Mokka -M ILD_o1_v05
+
+/Mokka/Visu/Detector/DumpGDML
+exit
+
+mv World.gdml ILD_o1_v05.gdml
+
+
+#
+# create materials.xml file:
+#    - extract <materials/> block into TMP file
+#      and remove hex numbers from names:
+
+sed 's/0x[abcdef0-9]*//' materials_TMP.xml > materials.xml
+
+######################################################################################################
+#
+#  extract all model relevant parameters from Mokka DB
+#
+  python scripts/dumpModelParameters.py ILD_o1_v05
+
+ -> creates model_parameters_ILD_o1_v05.xml
+ -> can be used in compact xml file ...
+
+##########################################################################################################################################################################################################
