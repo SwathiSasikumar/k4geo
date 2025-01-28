@@ -50,6 +50,7 @@ namespace {
       return 1;
     }
 
+   
     // Create LayeredCalorimeterData
     auto caloData = new dd4hep::rec::LayeredCalorimeterData;
     caloData->layoutType = dd4hep::rec::LayeredCalorimeterData::BarrelLayout;
@@ -61,7 +62,7 @@ namespace {
     caloDetElem.addExtension<dd4hep::rec::LayeredCalorimeterData>(caloData);
 
     // Material manager
-    rec::MaterialManager matMgr(caloDetElem.volume());
+    dd4hep::rec::MaterialManager matMgr(caloDetElem.volume());
     double rad_first = Rmin;
     double rad_last = 0;
     double dR =  Rmax - Rmin;
@@ -97,7 +98,7 @@ namespace {
      
 
       // Define and add the layer
-      rec::LayeredCalorimeterData::Layer caloLayer;
+      dd4hep::rec::LayeredCalorimeterData::Layer caloLayer;
       caloLayer.distance = rad_first;
       caloLayer.sensitive_thickness       = thickness_sen;
       caloLayer.inner_nRadiationLengths   = value_of_x0 / 2.0;
